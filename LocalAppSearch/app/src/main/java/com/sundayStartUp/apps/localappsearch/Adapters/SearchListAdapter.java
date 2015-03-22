@@ -82,12 +82,14 @@ public class SearchListAdapter extends BaseAdapter{
     	if(inputString.length() == 0) {
     		packageList.addAll(tempPackageList);
     	} else {
-    		for(PackageInfo pi : tempPackageList) {
-    			String appName = packageManager.getApplicationLabel(
-    	                pi.applicationInfo).toString();
-    			if(appName.toLowerCase(Locale.US).indexOf(inputString) >= 0) {
-    				packageList.add(pi);
-    			}
+    		for(PackageInfo packageInfo : tempPackageList) {
+                if(packageInfo != null) {
+                    String appName = packageManager.getApplicationLabel(
+                            packageInfo.applicationInfo).toString();
+                    if (appName.toLowerCase(Locale.US).indexOf(inputString) >= 0) {
+                        packageList.add(packageInfo);
+                    }
+                }
     		}
     	}
     	notifyDataSetChanged();

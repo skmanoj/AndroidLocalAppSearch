@@ -2,7 +2,9 @@ package com.sundayStartUp.apps.localappsearch.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBarActivity;
 import com.sundayStartUp.apps.localappsearch.R;
@@ -16,8 +18,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new SearchFragment()).commit();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if(fragmentManager != null) {
+                fragmentManager.beginTransaction()
+                        .add(R.id.container, new SearchFragment()).commit();
+            }
         }
     }
 
@@ -25,8 +30,12 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        MenuInflater menuInflater = getMenuInflater();
+        if(menuInflater != null) {
+            menuInflater.inflate(R.menu.main, menu);
+            return true;
+        }
+        return false;
     }
 
     @Override

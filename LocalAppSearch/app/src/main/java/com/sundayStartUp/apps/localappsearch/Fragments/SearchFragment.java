@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -49,12 +50,12 @@ public class SearchFragment extends Fragment implements OnItemClickListener {
         List<PackageInfo> appPackageList = new ArrayList<PackageInfo>();
         Intent intent;
         
-        for(PackageInfo pi : packageList) {
-        	intent = mPackageManager.getLaunchIntentForPackage(pi.packageName);
-            boolean b = intent == null || 
-            		pi.packageName.equalsIgnoreCase(getActivity().getApplicationContext().getPackageName());
-            if(!b) {
-            	appPackageList.add(pi);
+        for(PackageInfo packageInfo : packageList) {
+        	intent = mPackageManager.getLaunchIntentForPackage(packageInfo.packageName);
+            boolean status = intent == null ||
+            		packageInfo.packageName.equalsIgnoreCase(getActivity().getApplicationContext().getPackageName());
+            if(!status) {
+            	appPackageList.add(packageInfo);
             }
         }
         
@@ -67,14 +68,13 @@ public class SearchFragment extends Fragment implements OnItemClickListener {
 		mAppListView.setOnScrollListener(new OnScrollListener() {
 			
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				hideKeyBoard();
-				
+                hideKeyBoard();
 			}
 			
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		mSearchText.addTextChangedListener(new TextWatcher() {
